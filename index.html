@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>jSlider</title>
+	<style>
+
+	/* @group SMALL RESET */
+
+		html, body {
+			margin: 0;
+			padding: 0;
+			font: 1em/1.4 sans-serif;
+		}
+
+		html {
+			-webkit-font-smoothing: antialiased;
+			-moz-osx-font-smoothing: grayscale;
+		}
+
+		body {
+			min-height: 100%;
+		}
+
+		* {-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;}
+		div, ul, li {display: block; margin: 0; padding: 0; list-style: none;}
+
+		.a {width: 530px; padding: 10px; background-color: #f00;}
+		.a::after {content: " "; display: block; clear: left;}
+	
+	/* @end SMALL RESET */
+			
+
+	/* @group jsSlider */
+
+		.jSlider {
+			white-space: nowrap;
+			font-size: 0rem;
+			overflow: hidden;
+			width: 700px;
+			height: 500px;
+		}
+
+			.jSlider-control .image-item,
+			.jSlider-control-item,
+			.jSlider-control {
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+			}
+
+			.jSlider > * {
+				display: inline-block;
+				font-size: 1rem;
+				white-space: normal;
+				vertical-align: top;
+
+				background-color: #000;
+				cursor: pointer;
+				position: relative;
+				text-align: center;
+			}
+
+			.jSlider .image-item {
+				width: 100%;
+				height: 100%;
+			}
+
+				.jSlider .image-item::before {
+					content: '';
+					display: inline-block;
+					height: 100%;
+					vertical-align: middle;
+					font-size: 0em;
+				}
+
+				.jSlider .image-item img {
+					display: inline-block;
+					margin: 0 auto;
+					max-width: 100%;
+					max-height: 100%;
+					vertical-align: middle;
+			}
+
+		.jSlider-control {
+			z-index: 1;
+			cursor: pointer;
+			display: inline-block;
+		}
+
+		.jSlider-control.hide {
+			display: none;
+		}
+
+	/* @end jsSlider */
+
+	/* @group CUSTOM STYLE */
+
+		.my-slider {
+			display: inline-block;
+			background-color: #2b2b2b;
+			color: #fff;
+			margin: 20px;
+			position: relative;
+		}
+
+			.my-slider .jSlider {
+				width: 700px;
+				height: 500px;
+			}
+
+			.my-slider .image-item {
+				display: inline-block;
+				position: relative;
+				text-align: center;
+				width: 100%;
+				height: 100%;
+				-webkit-user-select: none;
+				   -moz-user-select: none;
+				    -ms-user-select: none;
+				        user-select: none;
+			}
+
+		.my-slider .jSlider-control {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			display: inline-block;
+			opacity: 0.7;
+			margin: 0 10px;
+			-webkit-transform: translateY(-50%);
+			    -ms-transform: translateY(-50%);
+			        transform: translateY(-50%);
+		}
+
+			.my-slider .jSlider-control .control-label {
+				font-size: 0;
+				height: 1px;
+				overflow: hidden;
+				display: block;
+			}
+
+			.my-slider .jSlider-control .arrow {
+				position: relative;
+				display: block;
+				width: 30px;
+				height: 60px;
+				color: #fff;
+			}
+
+				.my-slider .jSlider-control .arrow::before,
+				.my-slider .jSlider-control .arrow::after {
+					content: '';
+					display: block;
+					width: 100%;
+					height: 4px;
+					background-color: currentColor;
+					position: absolute;
+					top: 50%;
+					left: 16%;
+					margin-top: -2px;
+					border-radius: 0 5px 5px 0;
+					background-clip: padding-box;
+					transform-origin: 1px 100%;
+					-webkit-transform: rotate(-45deg);
+					    -ms-transform: rotate(-45deg);
+					        transform: rotate(-45deg);
+				}
+
+				.my-slider .jSlider-control .arrow::after {
+					transform-origin: 1px 0;
+					-webkit-transform: rotate(45deg);
+					    -ms-transform: rotate(45deg);
+					        transform: rotate(45deg);
+				}
+
+		.my-slider .jSlider-control.next {
+			left: auto;
+			right: 0;
+		}
+
+			.my-slider .jSlider-control.next .arrow {
+				transform-origin: 50% 50%;
+				-webkit-transform: rotate(-180deg);
+				    -ms-transform: rotate(-180deg);
+				        transform: rotate(-180deg);
+			}
+
+		.my-slider .jSlider-control:not(.hide):hover {
+			opacity: 1;
+		}
+
+		.my-slider .tools {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			right: 0;
+			height: 40px;
+			background-color: rgba(0, 0, 0, 0.8);
+			padding: 8px 10px;
+		}
+	
+	/* @end CUSTOM STYLE */
+			
+	</style>
+	<script src="//cdn.jsdelivr.net/jquery/1.11.0/jquery.min.js"></script>
+	<script type="text/javascript" src="jSlider.js"></script>
+	<script type="text/javascript">
+
+		$(function(){
+
+			$('img').each(function() {
+
+				$(this)
+					.on('load', function() { console.log("image loaded correctly"); })
+					.on('error', function() { console.log("error loading image"); })
+					.attr("src", $(this).attr("src"));
+			});
+
+			// $("<img/>")
+			// 	.on('load', function() { console.log("image loaded correctly"); })
+			// 	.on('error', function() { console.log("error loading image"); })
+			// 	.attr("src", $(originalImage).attr("src"));
+
+			$('.start-slider').jSlider();
+
+			$('.my-slider').jSlider({
+				loop: true
+			});
+
+		});
+	</script>
+</head>
+<body>
+
+	<div class="start-slider">
+		<ul class="jSlider">
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/900/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/1400/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/200/400/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/200/200/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/900/cats/" alt="">
+			</li>
+		</ul>
+		<a role="button" class="article-slider-button jSlider-control prev">Précédent</a>
+		<a role="button" class="article-slider-button jSlider-control next">Suivant</a>
+	</div>
+
+	<div class="my-slider">
+		<ul class="jSlider">
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/900/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/1400/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/200/400/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/200/200/cats/" alt="">
+			</li>
+			<li class="image-item jSlider-control-item">
+				<img src="http://lorempixel.com/900/900/cats/" alt="">
+			</li>
+		</ul>
+		<a role="button" class="article-slider-button jSlider-control prev">
+			<span class="arrow"></span>
+			<span class="control-label">Précédent</span>
+		</a>
+		<a role="button" class="article-slider-button jSlider-control next">
+			<span class="arrow"></span>
+			<span class="control-label">Suivant</span>
+		</a>
+		<div class="tools"><span class="jSlider-counter">-</span>/<span class="jSlider-total">-</span></div>
+	</div>
+	
+</body>
+</html>
